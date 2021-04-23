@@ -50,7 +50,7 @@ server.post('/get-movie-details', (req, res) => {
                 && !req.body.queryResult.parameters.actors && !req.body.queryResult.parameters.plot && !req.body.queryResult.parameters.rating){
                     var txt = "Hello World!";
                     dataToSend+=  `Genre: ${movie.Genre}.\nYear: ${movie.Year}.\nDirector: ${movie.Director}.\nActors: ${movie.Actors}.\nPlot: ${movie.Plot}.\nRating: ${movie.imdbRating}.\n`;
-                    dataToSend += document.write(txt.link(movie.Poster));
+                    dataToSend += txt.link(movie.Poster);
                 }
             return res.json({
                 fulfillmentText: dataToSend,
