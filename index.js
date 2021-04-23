@@ -13,7 +13,7 @@ server.use(bodyParser.urlencoded({
 server.use(bodyParser.json());
 
 server.post('/get-movie-details', (req, res) => {
-
+    var genre = {'бойовик':'Action','кримінал': 'Crime', 'драма':'Drama','трилер':'Thriller'}
     const movieToSearch = req.body.queryResult && req.body.queryResult.parameters && req.body.queryResult.parameters.movie ? req.body.queryResult.parameters.movie : 'The Godfather';
     const reqUrl = encodeURI(`http://www.omdbapi.com/?t=${movieToSearch}&apikey=${API_KEY}`);
     http.get(reqUrl, (responseFromAPI) => {
@@ -24,7 +24,7 @@ server.post('/get-movie-details', (req, res) => {
         responseFromAPI.on('end', () => {
             const movie = JSON.parse(completeResponse);
             let dataToSend = movieToSearch === 'The Godfather' ? `I don't have the required info on that. Here's some info on 'The Godfather' instead.\n` : '';
-            dataToSend += `Назва: ${movie.Title}\nАктори: ${movie.Actors}\nЖанр: ${movie.Genre}\nРік: ${movie.Year}`;
+            dataToSend += `Назва: ${movie.Title}\nАктори: ${movie.Actors}\nЖанр: genre[${movie.Genre}]\nРік: ${movie.Year}`;
 
             return res.json({
                 fulfillmentText: dataToSend,
