@@ -49,7 +49,7 @@ server.post('/get-movie-details', (req, res) => {
             if (!req.body.queryResult.parameters.genre && !req.body.queryResult.parameters.year && !req.body.queryResult.parameters.director
                 && !req.body.queryResult.parameters.actors && !req.body.queryResult.parameters.plot && !req.body.queryResult.parameters.rating){
                     var a = document.getElementById(`${movie.Poster}`);
-                    dataToSend+=  `Genre: ${movie.Genre}.\nYear: ${movie.Year}.\nDirector: ${movie.Director}.\nActors: ${movie.Actors}.\nPlot: ${movie.Plot}.\nRating: ${movie.imdbRating}.\n`+ console.log(a.getElementsByTagName('p')[0].innerHTML);
+                    dataToSend+=  `Genre: ${movie.Genre}.\nYear: ${movie.Year}.\nDirector: ${movie.Director}.\nActors: ${movie.Actors}.\nPlot: ${movie.Plot}.\nRating: ${movie.imdbRating}.\n ${a.getElementsByTagName('p')[0].innerHTML}`;
                 }
             return res.json({
                 fulfillmentText: dataToSend,
