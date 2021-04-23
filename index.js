@@ -3,7 +3,7 @@ const emoji = require('node-emoji');
 const express = require('express');
 const bodyParser = require('body-parser');
 const http = require('http');
-const API_KEY = '46617882';
+const API_KEY = require('./apiKey');
 
 const server = express();
 server.use(bodyParser.urlencoded({
