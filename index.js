@@ -51,7 +51,7 @@ server.post('/get-movie-details', (req, res) => {
                     dataToSend+=  `Genre: ${movie.Genre}.\nYear: ${movie.Year}.\nDirector: ${movie.Director}.\nActors: ${movie.Actors}.\nPlot: ${movie.Plot}.\nRating: ${movie.imdbRating}.\n`;
                     var shortUrl = require('node-url-shortener');
                     dataToSend += shortUrl.short(movie.Poster, function(err, url){
-                        console.log(url);
+                        url;
                         
                     });;
                 }
