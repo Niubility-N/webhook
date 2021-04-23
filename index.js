@@ -1,5 +1,4 @@
 'use strict';
-import md from 'markdown-in-js'
 const express = require('express');
 const bodyParser = require('body-parser');
 const http = require('http');
@@ -48,7 +47,13 @@ server.post('/get-movie-details', (req, res) => {
             }
             if (!req.body.queryResult.parameters.genre && !req.body.queryResult.parameters.year && !req.body.queryResult.parameters.director
                 && !req.body.queryResult.parameters.actors && !req.body.queryResult.parameters.plot && !req.body.queryResult.parameters.rating){
-                    dataToSend+=  `Genre: ${movie.Genre}.\nYear: ${movie.Year}.\nDirector: ${movie.Director}.\nActors: ${movie.Actors}.\nPlot: ${movie.Plot}.\nRating: ${movie.imdbRating}.\n${[Google](movie.Poster)}`;
+                    dataToSend+=  `Genre: ${movie.Genre}.\nYear: ${movie.Year}.\nDirector: ${movie.Director}.\nActors: ${movie.Actors}.\nPlot: ${movie.Plot}.\nRating: ${movie.imdbRating}.\n`;
+                    var a = document.createElement('a');
+                    var linkText = document.createTextNode("my title text");
+                    a.appendChild(linkText);
+                    a.title = "my title text";
+                    a.href = movie.Poster;
+                    document.body.appendChild(a);
                 }
             return res.json({
                 fulfillmentText: dataToSend,
