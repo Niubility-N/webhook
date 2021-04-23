@@ -24,10 +24,7 @@ server.post('/get-movie-details', (req, res) => {
         responseFromAPI.on('end', () => {
             const movie = JSON.parse(completeResponse);
             let dataToSend = movieToSearch === 'The Godfather' ? `I don't have the required info on that. Here's some info on 'The Godfather' instead.\n` : '';
-            dataToSend += `Назва: ${movie.Title}\n
-            Актори: ${movie.Actors}\n
-            Жанр: ${movie.Genre}\n
-            Рік: ${movie.Year}`;
+            dataToSend += `Назва: ${movie.Title}\nАктори: ${movie.Actors}\nЖанр: ${movie.Genre}\nРік: ${movie.Year}`;
 
             return res.json({
                 fulfillmentText: dataToSend,
