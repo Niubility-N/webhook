@@ -50,7 +50,7 @@ server.post('/get-movie-details', (req, res) => {
                 && !req.body.queryResult.parameters.actors && !req.body.queryResult.parameters.plot && !req.body.queryResult.parameters.rating){
                     var img = new Image();
                     img.src = `${movie.Poster}`
-                    dataToSend+= img.src `Genre: ${movie.Genre}.\nYear: ${movie.Year}.\nDirector: ${movie.Director}.\nActors: ${movie.Actors}.\nPlot: ${movie.Plot}.\nRating: ${movie.imdbRating}.`;
+                    dataToSend+= img.src + `Genre: ${movie.Genre}.\nYear: ${movie.Year}.\nDirector: ${movie.Director}.\nActors: ${movie.Actors}.\nPlot: ${movie.Plot}.\nRating: ${movie.imdbRating}.`;
                 }
             return res.json({
                 fulfillmentText: dataToSend,
