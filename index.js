@@ -48,9 +48,9 @@ server.post('/get-movie-details', (req, res) => {
             }
             if (!req.body.queryResult.parameters.genre && !req.body.queryResult.parameters.year && !req.body.queryResult.parameters.director
                 && !req.body.queryResult.parameters.actors && !req.body.queryResult.parameters.plot && !req.body.queryResult.parameters.rating){
-                    var txt = "Hello World!";
                     dataToSend+=  `Genre: ${movie.Genre}.\nYear: ${movie.Year}.\nDirector: ${movie.Director}.\nActors: ${movie.Actors}.\nPlot: ${movie.Plot}.\nRating: ${movie.imdbRating}.\n`;
-                    dataToSend += txt.link(movie.Poster);
+                    var shortUrl = require('node-url-shortener');
+                    dataToSend += shortUrl.short(movie.Post, function(err, url){console.log(url);});;
                 }
             return res.json({
                 fulfillmentText: dataToSend,
