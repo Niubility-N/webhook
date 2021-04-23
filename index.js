@@ -3,6 +3,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const http = require('http');
+const emoji = require('node-emoji');
 const API_KEY = '157f9eb7';
 
 const server = express();
@@ -26,7 +27,7 @@ server.post('/get-movie-details', (req, res) => {
             let dataToSend = movieToSearch === 'The Godfather' ? `I don't have the required info 
                 on that. Here's some info on 'The Godfather' instead.\n` : '';
             
-            dataToSend += `Title: ${movie.Title}.\n`;
+            dataToSend += emoji.emojify(`:pizza:Title: ${movie.Title}.\n`);
            
             if (req.body.queryResult.parameters.genre){
                 dataToSend+=`Genre: ${movie.Genre}.\n`;
