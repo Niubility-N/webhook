@@ -25,7 +25,7 @@ server.post('/get-movie-details', (req, res) => {
             const movie = JSON.parse(completeResponse);
             let dataToSend = movieToSearch === 'The Godfather' ? `I don't have the required info on that. Here's some info on 'The Godfather' instead.\n` : '';
             var en_genre = `${movie.Genre}`;
-            dataToSend += `Назва: ${movie.Title}\nАктори: ${movie.Actors}\nЖанр:`+ en_genre.split(',')+`\nРік: ${movie.Year}`;
+            dataToSend += `Назва: ${movie.Title}\nАктори: ${movie.Actors}\nЖанр:`+ genre(en_genre.split(','))+`\nРік: ${movie.Year}`;
 
             return res.json({
                 fulfillmentText: dataToSend,
