@@ -25,31 +25,37 @@ server.post('/get-movie-details', (req, res) => {
             const movie = JSON.parse(completeResponse);
             let dataToSend = movieToSearch === 'The Godfather' ? `I don't have the required info on that. Here's some info on 'The Godfather' instead.\n` : '';
             
-            dataToSend += `Title: ${movie.Title}.\n`;
-           
-            if (req.body.queryResult.parameters.genre){
-                dataToSend+=`Genre: ${movie.Genre}.\n`;
-            }
-            if (req.body.queryResult.parameters.year){
-                dataToSend+=`Year: ${movie.Year}.\n`;
-            }
-            if (req.body.queryResult.parameters.director){
-                dataToSend+=`Director: ${movie.Director}.\n`;
-            }
-            if (req.body.queryResult.parameters.actors){
-                dataToSend+=`Actors: ${movie.Actors}.\n`;
-            }
-            if (req.body.queryResult.parameters.plot){
-                dataToSend+=`Plot: ${movie.Plot}.\n`;
-            }
-            if (req.body.queryResult.parameters.rating){
-                dataToSend+=`Rating: ${movie.imdbRating}.\n`;
-            }
-            if (!req.body.queryResult.parameters.genre && !req.body.queryResult.parameters.year && !req.body.queryResult.parameters.director
-                && !req.body.queryResult.parameters.actors && !req.body.queryResult.parameters.plot && !req.body.queryResult.parameters.rating){
-
-                    dataToSend+=  `Genre: ${movie.Genre}.\nYear: ${movie.Year}.\nDirector: ${movie.Director}.\nActors: ${movie.Actors}.\nPlot: ${movie.Plot}.\nRating: ${movie.imdbRating}.\n${movie.Poster}`;
+            if (movie.Title != `undefind`){
+            
+                dataToSend += `Title: ${movie.Title}.\n`;
+            
+                if (req.body.queryResult.parameters.genre){
+                    dataToSend+=`Genre: ${movie.Genre}.\n`;
                 }
+                if (req.body.queryResult.parameters.year){
+                    dataToSend+=`Year: ${movie.Year}.\n`;
+                }
+                if (req.body.queryResult.parameters.director){
+                    dataToSend+=`Director: ${movie.Director}.\n`;
+                }
+                if (req.body.queryResult.parameters.actors){
+                    dataToSend+=`Actors: ${movie.Actors}.\n`;
+                }
+                if (req.body.queryResult.parameters.plot){
+                    dataToSend+=`Plot: ${movie.Plot}.\n`;
+                }
+                if (req.body.queryResult.parameters.rating){
+                    dataToSend+=`Rating: ${movie.imdbRating}.\n`;
+                }
+                if (!req.body.queryResult.parameters.genre && !req.body.queryResult.parameters.year && !req.body.queryResult.parameters.director
+                    && !req.body.queryResult.parameters.actors && !req.body.queryResult.parameters.plot && !req.body.queryResult.parameters.rating){
+
+                        dataToSend+=  `Genre: ${movie.Genre}.\nYear: ${movie.Year}.\nDirector: ${movie.Director}.\nActors: ${movie.Actors}.\nPlot: ${movie.Plot}.\nRating: ${movie.imdbRating}.\n${movie.Poster}`;
+                    }
+            };
+            else{
+                dataToSend += `I don't have the required info on that. Here's some info on 'The Godfather' instead.\n`;
+            };
             return res.json({
                 fulfillmentText: dataToSend,
                 source: 'get-movie-details'
