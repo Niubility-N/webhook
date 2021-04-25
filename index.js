@@ -25,7 +25,7 @@ server.post('/get-movie-details', (req, res) => {
             const movie = JSON.parse(completeResponse);
             let dataToSend = movieToSearch === 'The Godfather' ? `I don't have the required info on that. Here's some info on 'The Godfather' instead.\n` : '';
             
-            if (movie.Title != `undefind`){
+            if (movie.Title != 'undefined'){
             
                 dataToSend += `Title: ${movie.Title}.\n`;
             
