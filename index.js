@@ -53,9 +53,10 @@ server.post('/get-movie-details', (req, res) => {
                 if (req.body.queryResult.parameters.rating){
                     dataToSend+=`Rating: ${movie.imdbRating}.\n`;
                 }
-                if (!req.body.queryResult.parameters.genre && !req.body.queryResult.parameters.year && !req.body.queryResult.parameters.director
-                    && !req.body.queryResult.parameters.actors && !req.body.queryResult.parameters.plot && !req.body.queryResult.parameters.rating
-                    && !req.body.queryResult.parameters.language && !req.body.queryResult.parameters.runtime){
+                if (req.bode.queryResult.parameters.awards){
+                    dataToSend+=`Awards: ${movie.Awards}.\n`;
+                }
+                if (!req.body.queryResult.parameters.genre && !req.body.queryResult.parameters.year && !req.body.queryResult.parameters.director && !req.body.queryResult.parameters.actors && !req.body.queryResult.parameters.plot && !req.body.queryResult.parameters.rating && !req.body.queryResult.parameters.language && !req.body.queryResult.parameters.runtime){
                         dataToSend+=`Genre: ${movie.Genre}.\nLanguage: ${movie.Language}.\nRuntime: ${movie.Runtime}.\nYear: ${movie.Year}.\nDirector: ${movie.Director}.\nActors: ${movie.Actors}.\nPlot: ${movie.Plot}\nRating: ${movie.imdbRating}.\n${movie.Poster}`;
                 }
             }else{
