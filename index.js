@@ -52,8 +52,7 @@ server.post('/get-movie-details', (req, res) => {
 
                         dataToSend+=  `Genre: ${movie.Genre}.\nYear: ${movie.Year}.\nDirector: ${movie.Director}.\nActors: ${movie.Actors}.\nPlot: ${movie.Plot}.\nRating: ${movie.imdbRating}.\n${movie.Poster}`;
                     }
-            };
-            else{
+            }else{
                 dataToSend += `I don't have the required info on that. Here's some info on 'The Godfather' instead.\n`;
             };
             return res.json({
