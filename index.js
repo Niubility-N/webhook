@@ -53,7 +53,7 @@ server.post('/get-movie-details', (req, res) => {
                 if (req.body.queryResult.parameters.rating){
                     dataToSend+=`Rating: ${movie.imdbRating}.\n`;
                 }
-                if (req.bode.queryResult.parameters.awards){
+                if (req.body.queryResult.parameters.awards){
                     dataToSend+=`Awards: ${movie.Awards}.\n`;
                 }
                 if (!req.body.queryResult.parameters.genre && !req.body.queryResult.parameters.year && !req.body.queryResult.parameters.director && !req.body.queryResult.parameters.actors && !req.body.queryResult.parameters.plot && !req.body.queryResult.parameters.rating && !req.body.queryResult.parameters.language && !req.body.queryResult.parameters.runtime && !req.body.queryResult.parameters.awards){
