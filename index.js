@@ -29,7 +29,7 @@ server.post('/get-movie-details', (req, res) => {
             }else{
                if (movie.Title){
                     
-                    dataToSend += `🎬*Title*: ${movie.Title}.\n`;
+                    dataToSend += `🎬Title: ${movie.Title}.\n`;
             
                     if (req.body.queryResult.parameters.genre){
                         dataToSend+=`👾Genre: ${movie.Genre}.\n`;
@@ -75,8 +75,7 @@ server.post('/get-movie-details', (req, res) => {
     }, (error) => {
         return res.json({
             fulfillmentText: 'Something went wrong!',
-            source: 'get-movie-details',
-            parse_mode: 'Markdown'
+            source: 'get-movie-details'
         });
     });
 });
