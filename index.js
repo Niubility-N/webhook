@@ -25,7 +25,7 @@ server.post('/get-movie-details', (req, res) => {
             const movie = JSON.parse(completeResponse);
             let dataToSend = '';
             if (movieToSearch === 'INCORRECT'){
-                dataToSend += `I don't have the required info on that. Please check that the data entered is correct.\n Example of input: What do you know about "Suicide squad"?\n`;
+                dataToSend += `I don't have the required info on that. Please enter a movie title if you want to know more about it.\nExample of input: What do you know about "Suicide squad"?\n`;
             }else{
                if (movie.Title){
                 
