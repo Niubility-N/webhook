@@ -28,8 +28,8 @@ server.post('/get-movie-details', (req, res) => {
                 dataToSend += `I don't have the required info on that. Please enter a movie title if you want to know more about it.\nFor example: What do you know about "Suicide squad"?\n`;
             }else{
                if (movie.Title){
-                    var str = 'Title';
-                    dataToSend += `🎬${str.bold()}: ${movie.Title}.\n`;
+                    
+                    dataToSend += `🎬Title: ${movie.Title}.\n`;
             
                     if (req.body.queryResult.parameters.genre){
                         dataToSend+=`👾Genre: ${movie.Genre}.\n`;
