@@ -23,8 +23,8 @@ server.post('/get-movie-details', (req, res) => {
         });
         responseFromAPI.on('end', () => {
             const movie = JSON.parse(completeResponse);
-            if (movieToSearch != 'INCORRECT'){
-                let dataToSend = `I don't have the required info on that. Please check that the data entered is correct.\n Example of input: What do you know about "Suicide squad"?`
+            if (movieToSearch == 'INCORRECT'){
+                let dataToSend = `I don't have the required info on that. Please check that the data entered is correct.\n Example of input: What do you know about "Suicide squad"?`;
             }else{
                 let dataToSend = '';
             
@@ -65,7 +65,7 @@ server.post('/get-movie-details', (req, res) => {
                 }else{
                     dataToSend += `I don't have the required info on that. Please check that the data entered is correct.\n`;
                 };
-            }
+            };
             
             return res.json({
                 fulfillmentText: dataToSend,
