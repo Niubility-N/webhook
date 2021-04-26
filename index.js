@@ -23,45 +23,50 @@ server.post('/get-movie-details', (req, res) => {
         });
         responseFromAPI.on('end', () => {
             const movie = JSON.parse(completeResponse);
-            let dataToSend = movieToSearch === 'INCORRECT' ? `I don't have the required info on that. Please check that the data entered is correct.\n Example of input: What do you know about "Suicide squad"?` : '';
-            
-            if (movie.Title){
-            
-                dataToSend += `🎬Title: ${movie.Title}.\n`;
-           
-                if (req.body.queryResult.parameters.genre){
-                    dataToSend+=`👾Genre: ${movie.Genre}.\n`;
-                }
-                if (req.body.queryResult.parameters.language){
-                    dataToSend+=`🌍Language: ${movie.Language}.\n`;
-                }
-                if (req.body.queryResult.parameters.runtime){
-                    dataToSend+=`🍿Runtime: ${movie.Runtime}.\n`;
-                }
-                if (req.body.queryResult.parameters.year){
-                    dataToSend+=`📆Year: ${movie.Year}.\n`;
-                }
-                if (req.body.queryResult.parameters.director){
-                    dataToSend+=`📽️Director: ${movie.Director}.\n`;
-                }
-                if (req.body.queryResult.parameters.actors){
-                    dataToSend+=`🎭Actors: ${movie.Actors}.\n`;
-                }
-                if (req.body.queryResult.parameters.plot){
-                    dataToSend+=`📖Plot: ${movie.Plot}\n`;
-                }
-                if (req.body.queryResult.parameters.rating){
-                    dataToSend+=`📈Rating: ${movie.imdbRating}.\n`;
-                }
-                if (req.body.queryResult.parameters.awards){
-                    dataToSend+=`🏆Awards: ${movie.Awards}.\n`;
-                }
-                if (!req.body.queryResult.parameters.genre && !req.body.queryResult.parameters.year && !req.body.queryResult.parameters.director && !req.body.queryResult.parameters.actors && !req.body.queryResult.parameters.plot && !req.body.queryResult.parameters.rating && !req.body.queryResult.parameters.language && !req.body.queryResult.parameters.runtime && !req.body.queryResult.parameters.awards){
-                        dataToSend+=`👾Genre: ${movie.Genre}.\n🌍Language: ${movie.Language}.\n🍿Runtime: ${movie.Runtime}.\n📆Year: ${movie.Year}.\n📽️Director: ${movie.Director}.\n🎭Actors: ${movie.Actors}.\n📖Plot: ${movie.Plot}\n📈Rating: ${movie.imdbRating}.\n🏆Awards: ${movie.Awards}\n${movie.Poster}`;
-                }
+            let dataToSend = '';
+            if (movieToSearch === 'INCORRECT'){
+                dataToSend += `I don't have the required info on that. Please check that the data entered is correct.\n Example of input: What do you know about "Suicide squad"?\n`;
             }else{
-                dataToSend += `I don't have the required info on that. Please check that the data entered is correct.\n`;
+               if (movie.Title){
+                
+                    dataToSend += `🎬Title: ${movie.Title}.\n`;
+            
+                    if (req.body.queryResult.parameters.genre){
+                        dataToSend+=`👾Genre: ${movie.Genre}.\n`;
+                    }
+                    if (req.body.queryResult.parameters.language){
+                        dataToSend+=`🌍Language: ${movie.Language}.\n`;
+                    }
+                    if (req.body.queryResult.parameters.runtime){
+                        dataToSend+=`🍿Runtime: ${movie.Runtime}.\n`;
+                    }
+                    if (req.body.queryResult.parameters.year){
+                        dataToSend+=`📆Year: ${movie.Year}.\n`;
+                    }
+                    if (req.body.queryResult.parameters.director){
+                        dataToSend+=`📽️Director: ${movie.Director}.\n`;
+                    }
+                    if (req.body.queryResult.parameters.actors){
+                        dataToSend+=`🎭Actors: ${movie.Actors}.\n`;
+                    }
+                    if (req.body.queryResult.parameters.plot){
+                        dataToSend+=`📖Plot: ${movie.Plot}\n`;
+                    }
+                    if (req.body.queryResult.parameters.rating){
+                        dataToSend+=`📈Rating: ${movie.imdbRating}.\n`;
+                    }
+                    if (req.body.queryResult.parameters.awards){
+                        dataToSend+=`🏆Awards: ${movie.Awards}.\n`;
+                    }
+                    if (!req.body.queryResult.parameters.genre && !req.body.queryResult.parameters.year && !req.body.queryResult.parameters.director && !req.body.queryResult.parameters.actors && !req.body.queryResult.parameters.plot && !req.body.queryResult.parameters.rating && !req.body.queryResult.parameters.language && !req.body.queryResult.parameters.runtime && !req.body.queryResult.parameters.awards){
+                            dataToSend+=`👾Genre: ${movie.Genre}.\n🌍Language: ${movie.Language}.\n🍿Runtime: ${movie.Runtime}.\n📆Year: ${movie.Year}.\n📽️Director: ${movie.Director}.\n🎭Actors: ${movie.Actors}.\n📖Plot: ${movie.Plot}\n📈Rating: ${movie.imdbRating}.\n🏆Awards: ${movie.Awards}\n${movie.Poster}`;
+                    }
+                }else{
+                    dataToSend += `I don't have the required info on that. Please check that the data entered is correct.\n`;
+                }; 
             };
+            
+            
             return res.json({
                 fulfillmentText: dataToSend,
                 source: 'get-movie-details'
