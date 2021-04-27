@@ -2,7 +2,6 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const {markdownv2: format} = require('telegram-format');
 const http = require('http');
 const API_KEY = '157f9eb7';
 
@@ -30,7 +29,7 @@ server.post('/get-movie-details', (req, res) => {
             }else{
                if (movie.Title){
                     
-                    dataToSend += `🎬Title: ${movie.Title}.\n`;
+                    dataToSend += ctx.reply('Title', {reply_markup: 'markdown'});  //`🎬Title: ${movie.Title}.\n`;
             
                     if (req.body.queryResult.parameters.genre){
                         dataToSend+=`👾Genre: ${movie.Genre}.\n`;
@@ -57,7 +56,7 @@ server.post('/get-movie-details', (req, res) => {
                         dataToSend+=`📈Rating: ${movie.imdbRating}.\n`;
                     }
                     if (req.body.queryResult.parameters.awards){
-                        dataToSend+= ctx.reply('Awards', {reply_markup: 'markdown'});  //`🏆Awards: ${movie.Awards}.\n`;
+                        dataToSend+= `🏆Awards: ${movie.Awards}.\n`;
                     }
                     if (!req.body.queryResult.parameters.genre && !req.body.queryResult.parameters.year && !req.body.queryResult.parameters.director && !req.body.queryResult.parameters.actors && !req.body.queryResult.parameters.plot && !req.body.queryResult.parameters.rating && !req.body.queryResult.parameters.language && !req.body.queryResult.parameters.runtime && !req.body.queryResult.parameters.awards){
                             dataToSend+=`👾Genre: ${movie.Genre}.\n🌍Language: ${movie.Language}.\n🍿Runtime: ${movie.Runtime}.\n📆Year: ${movie.Year}.\n📽️Director: ${movie.Director}.\n🎭Actors: ${movie.Actors}.\n📖Plot: ${movie.Plot}\n📈Rating: ${movie.imdbRating}.\n🏆Awards: ${movie.Awards}\n${movie.Poster}`;
