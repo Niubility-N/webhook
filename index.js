@@ -29,7 +29,7 @@ server.post('/get-movie-details', (req, res) => {
             }else{
                if (movie.Title){
                     
-                    dataToSend += ctx.reply('Title', {reply_markup: 'markdown'});  //`🎬Title: ${movie.Title}.\n`;
+                    dataToSend += `🎬Title: ${movie.Title}.\n`;
             
                     if (req.body.queryResult.parameters.genre){
                         dataToSend+=`👾Genre: ${movie.Genre}.\n`;
