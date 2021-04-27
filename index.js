@@ -71,7 +71,7 @@ server.post('/get-movie-details', (req, res) => {
             return res.json({
                 fulfillmentText: dataToSend,
                 source: 'get-movie-details',
-                parse_mode: 'MarkdownV2'
+                parse_mode: 'Markdown'
             });
         });
     }, (error) => {
