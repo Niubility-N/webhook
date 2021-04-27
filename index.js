@@ -4,7 +4,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const http = require('http');
 const API_KEY = '157f9eb7';
-
 const server = express();
 server.use(bodyParser.urlencoded({
     extended: true
@@ -58,6 +57,9 @@ server.post('/get-movie-details', (req, res) => {
                     if (req.body.queryResult.parameters.awards){
                         dataToSend+= `🏆Awards: ${movie.Awards}.\n`;
                     }
+                    if (req.body.queryResult.parameters.awards){
+                        dataToSend+= `Website: ${movie.Website}.\n`;
+                    }
                     if (!req.body.queryResult.parameters.genre && !req.body.queryResult.parameters.year && !req.body.queryResult.parameters.director && !req.body.queryResult.parameters.actors && !req.body.queryResult.parameters.plot && !req.body.queryResult.parameters.rating && !req.body.queryResult.parameters.language && !req.body.queryResult.parameters.runtime && !req.body.queryResult.parameters.awards){
                             dataToSend+=`👾Genre: ${movie.Genre}.\n🌍Language: ${movie.Language}.\n🍿Runtime: ${movie.Runtime}.\n📆Year: ${movie.Year}.\n📽️Director: ${movie.Director}.\n🎭Actors: ${movie.Actors}.\n📖Plot: ${movie.Plot}\n📈Rating: ${movie.imdbRating}.\n🏆Awards: ${movie.Awards}\n${movie.Poster}`;
                     }
@@ -70,7 +72,6 @@ server.post('/get-movie-details', (req, res) => {
             return res.json({
                 fulfillmentText: dataToSend,
                 source: 'get-movie-details',
-                parse_mode: 'MarkdownV2'
             });
         });
     }, (error) => {
