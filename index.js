@@ -57,10 +57,10 @@ server.post('/get-movie-details', (req, res) => {
                         dataToSend+=`📈Rating: ${movie.imdbRating}.\n`;
                     }
                     if (req.body.queryResult.parameters.awards){
-                        dataToSend+=`🏆*${'Awards'}*: ${movie.Awards}.\n`;
+                        dataToSend+=`🏆Awards: ${movie.Awards}.\n`;
                     }
                     if (!req.body.queryResult.parameters.genre && !req.body.queryResult.parameters.year && !req.body.queryResult.parameters.director && !req.body.queryResult.parameters.actors && !req.body.queryResult.parameters.plot && !req.body.queryResult.parameters.rating && !req.body.queryResult.parameters.language && !req.body.queryResult.parameters.runtime && !req.body.queryResult.parameters.awards){
-                            dataToSend+=`👾Genre: ${movie.Genre}.\n🌍Language: ${movie.Language}.\n🍿Runtime: ${movie.Runtime}.\n📆Year: ${movie.Year}.\n📽️Director: ${movie.Director}.\n🎭Actors: ${movie.Actors}.\n📖Plot: ${movie.Plot}\n📈Rating: ${movie.imdbRating}.\n🏆Awards: ${movie.Awards}\n${movie.Poster}`;
+                            dataToSend+=`👾Genre: ${movie.Genre}.\n🌍Language: ${movie.Language}.\n🍿Runtime: ${movie.Runtime}.\n📆Year: ${movie.Year}.\n📽️Director: ${movie.Director}.\n🎭Actors: ${movie.Actors}.\n📖Plot: ${movie.Plot}\n📈Rating: ${movie.imdbRating}.\n🏆Awards: ${movie.Awards}\n [${'Poster'}](${movie.Poster})`;
                     }
                 }else{
                     dataToSend += `I don't have the required info on that. Please check that the data entered is correct.\n`;
@@ -71,7 +71,7 @@ server.post('/get-movie-details', (req, res) => {
             return res.json({
                 fulfillmentText: dataToSend,
                 source: 'get-movie-details',
-                parse_mode: 'Markdown'
+                parse_mode: 'MarkdownV2'
             });
         });
     }, (error) => {
