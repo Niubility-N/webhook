@@ -2,7 +2,7 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const {markdownv2: format} = require('telegram-format');
+
 const http = require('http');
 const API_KEY = '157f9eb7';
 
@@ -30,7 +30,7 @@ server.post('/get-movie-details', (req, res) => {
             }else{
                if (movie.Title){
                     
-                    dataToSend += `🎬${format.bold('Title')}: ${movie.Title}.\n`;
+                    dataToSend += `🎬Title: ${movie.Title}.\n`;
             
                     if (req.body.queryResult.parameters.genre){
                         dataToSend+=`👾Genre: ${movie.Genre}.\n`;
