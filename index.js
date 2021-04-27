@@ -2,7 +2,6 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-
 const http = require('http');
 const API_KEY = '157f9eb7';
 
@@ -30,7 +29,7 @@ server.post('/get-movie-details', (req, res) => {
             }else{
                if (movie.Title){
                     
-                    dataToSend += `🎬Title: ${movie.Title}.\n`;
+                    dataToSend += `🎬*${'Title'}*: ${movie.Title}.\n`;
             
                     if (req.body.queryResult.parameters.genre){
                         dataToSend+=`👾Genre: ${movie.Genre}.\n`;
@@ -70,7 +69,8 @@ server.post('/get-movie-details', (req, res) => {
             
             return res.json({
                 fulfillmentText: dataToSend,
-                source: 'get-movie-details'
+                source: 'get-movie-details',
+                parse_mode: 'MarkdownV2'
             });
         });
     }, (error) => {
