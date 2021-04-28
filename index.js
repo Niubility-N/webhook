@@ -24,7 +24,7 @@ server.post('/get-movie-details', (req, res) => {
         });
         responseFromAPI.on('end', () => {
             const movie = JSON.parse(completeResponse);
-            let dataToSend = `${movie.Plot}`;
+            let dataToSend = `Plot for ${movie.Title}: ${movie.Plot}`;
             
             return res.json({
                 fulfillmentText: dataToSend,
