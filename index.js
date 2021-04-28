@@ -14,8 +14,9 @@ server.use(bodyParser.json());
 server.post('/get-movie-details', (req, res) => {
     
     if(req.body.queryResult.parameters.plot){
+        const movieToSearch = req.body.queryResult && req.body.queryResult.parameters && req.body.queryResult.parameters.movie ? req.body.queryResult.parameters.movie : 'INCORRECT';
         
-        const reqUrl = encodeURI(`http://www.omdbapi.com/?t=${movieToSearch}&apikey=${API_KEY}`);
+        const reqUrl = encodeURI(`http://www.omdbapi.com/?t=${movieToSearch}&apikey=${API_KEY}&plot=full`);
         http.get(reqUrl, (responseFromAPI) => {
         let completeResponse = '';
         responseFromAPI.on('data', (chunk) => {
@@ -73,23 +74,6 @@ server.post('/get-movie-details', (req, res) => {
                     }
                     if (req.body.queryResult.parameters.actors){
                         dataToSend+=`🎭Actors: ${movie.Actors}.\n`;
-                    }
-                    if (req.body.queryResult.parameters.plot){
-                        const reqUrl1 = encodeURI(`http://www.omdbapi.com/?t=${movieToSearch}&apikey=${API_KEY}&plot=full`);
-                        // dataToSend+=`📖Plot: ${movie.Plot}\n`;
-                        dataToSend+=`📖Plot: ${http.get(
-                            reqUrl1, (responseFromAPI) => {
-                                let completeResponse = '';
-                                responseFromAPI.on('data', (chunk) => {
-                                    completeResponse += chunk;
-                                });
-                                responseFromAPI.on('end', () => {
-                                    const movie = JSON.parse(completeResponse);
-                                    dataToSend += `${movie.Plot}`;
-                                    
-                                });
-                            }
-                        )}\n`;
                     }
                     if (req.body.queryResult.parameters.rating){
                         dataToSend+=`📈Rating: ${movie.imdbRating}.\n`;
