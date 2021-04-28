@@ -49,7 +49,7 @@ server.post('/get-movie-details', (req, res) => {
                         dataToSend+=`🎭Actors: ${movie.Actors}.\n`;
                     }
                     if (req.body.queryResult.parameters.plot){
-                        const reqUrl1 = encodeURI(`http://www.omdbapi.com/?t=${movieToSearch}&apikey=${API_KEY}$plot=full`);
+                        const reqUrl1 = encodeURI(`http://www.omdbapi.com/?t=${movieToSearch}&apikey=${API_KEY}&plot=full`);
                         // dataToSend+=`📖Plot: ${movie.Plot}\n`;
                         dataToSend+=`📖Plot: ${http.get(
                             reqUrl1, (responseFromAPI) => {
