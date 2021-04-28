@@ -26,10 +26,10 @@ server.post('/get-movie-details', (req, res) => {
             if (movieToSearch === 'INCORRECT'){
                 dataToSend += `I don't have the required info on that. Please enter a movie title if you want to know more about it.\nFor example: What do you know about "Suicide squad"?\n`;
             }else{
-               if (movie.Title){
+                if (movie.Title){
                     
                     dataToSend += `🎬Title: ${movie.Title}.\n`;
-            
+                    
                     if (req.body.queryResult.parameters.genre){
                         dataToSend+=`👾Genre: ${movie.Genre}.\n`;
                     }
@@ -49,7 +49,24 @@ server.post('/get-movie-details', (req, res) => {
                         dataToSend+=`🎭Actors: ${movie.Actors}.\n`;
                     }
                     if (req.body.queryResult.parameters.plot){
-                        dataToSend+=`📖Plot: ${movie.Plot}\n`;
+                        const reqUrl1 = encodeURI(`http://www.omdbapi.com/?t=${movieToSearch}&apikey=${API_KEY}$plot=full`);
+                        // dataToSend+=`📖Plot: ${movie.Plot}\n`;
+                        dataToSend+=`📖Plot: ${http.get(
+                            reqUrl1, (responseFromAPI) => {
+                                let completeResponse = '';
+                                responseFromAPI.on('data', (chunk) => {
+                                    completeResponse += chunk;
+                                });
+                                responseFromAPI.on('end', () => {
+                                    const movie = JSON.parse(completeResponse);
+                                    let plotToReturn = `${movie.Plot}`;
+                                    return res.json({
+                                        fulfillmentText: plotToReturn,
+                                        source: `get-movie-details`,
+                                    });
+                                });
+                            }
+                        )}\n`;
                     }
                     if (req.body.queryResult.parameters.rating){
                         dataToSend+=`📈Rating: ${movie.imdbRating}.\n`;
