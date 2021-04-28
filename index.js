@@ -12,7 +12,33 @@ server.use(bodyParser.urlencoded({
 server.use(bodyParser.json());
 
 server.post('/get-movie-details', (req, res) => {
-
+    
+    if(req.body.queryResult.parameters.plot){
+        
+        const reqUrl = encodeURI(`http://www.omdbapi.com/?t=${movieToSearch}&apikey=${API_KEY}`);
+        http.get(reqUrl, (responseFromAPI) => {
+        let completeResponse = '';
+        responseFromAPI.on('data', (chunk) => {
+            completeResponse += chunk;
+        });
+        responseFromAPI.on('end', () => {
+            const movie = JSON.parse(completeResponse);
+            let dataToSend = `${movie.Plot}`;
+            
+            return res.json({
+                fulfillmentText: dataToSend,
+                source: 'get-movie-details',
+            });
+        });
+        }, (error) => {
+        return res.json({
+            fulfillmentText: 'Something went wrong!',
+            source: 'get-movie-details'
+        });
+    });
+            
+    }else{
+    
     const movieToSearch = req.body.queryResult && req.body.queryResult.parameters && req.body.queryResult.parameters.movie ? req.body.queryResult.parameters.movie : 'INCORRECT';
     const reqUrl = encodeURI(`http://www.omdbapi.com/?t=${movieToSearch}&apikey=${API_KEY}`);
     http.get(reqUrl, (responseFromAPI) => {
@@ -59,8 +85,8 @@ server.post('/get-movie-details', (req, res) => {
                                 });
                                 responseFromAPI.on('end', () => {
                                     const movie = JSON.parse(completeResponse);
-                                    let plotToReturn = `${movie.Plot}`;
-                                    return plotToReturn;
+                                    dataToSend += `${movie.Plot}`;
+                                    
                                 });
                             }
                         )}\n`;
@@ -92,6 +118,7 @@ server.post('/get-movie-details', (req, res) => {
             source: 'get-movie-details'
         });
     });
+    };
 });
 
 server.listen((process.env.PORT || 8000), () => {
